@@ -7,14 +7,16 @@ public class Player_Movement : MonoBehaviour
 
     [Header ("Movement")]
     public float moveSpeed;
-
     public float walkSpeed;
-
     public float maxSpeed;
-
     public float sprintSpeed;
-
     public float groundDrag;
+    public float slideSpeed;
+
+    private float desMoveSpeed;
+    private float finalDesMoveSpeed;
+    public float speedIncreaseMult;
+    public float slopeIncreaseMult;
 
     [Header ("Jumping")]
     public float jumpForce;
@@ -62,6 +64,8 @@ public class Player_Movement : MonoBehaviour
     float horizontalInput;
     float verticalInput;
 
+    public bool sliding;
+
     Vector3 moveDirection;
 
     Rigidbody rb;
@@ -72,6 +76,7 @@ public class Player_Movement : MonoBehaviour
         walking,
         sprinting,
         crouching,
+        sliding,
         air
     }
 
@@ -160,25 +165,78 @@ public class Player_Movement : MonoBehaviour
 
 
     private void StateHandle(){
-        /// Crouching
-        if(crouching){
+        /// sliding
+        if (sliding){
 
+            state = MovementState.sliding;
+
+            if (OnSlope() && rb.velocity.y < 0.1f){
+
+                desMoveSpeed = slideSpeed;
+
+            } else {
+                desMoveSpeed = sprintSpeed;
+
+            }
+
+        } else if(crouching){
+            /// Crouching
             state = MovementState.crouching;
-            moveSpeed = crouchSpeed;
+            desMoveSpeed = crouchSpeed;
 
         } else if(Grounded && Input.GetKey(runkey)){
             /// Running state
             state = MovementState.sprinting;
-            moveSpeed = sprintSpeed;
+            desMoveSpeed = sprintSpeed;
 
         } else if (Grounded){
             /// Walk State
             state = MovementState.walking;
-            moveSpeed = walkSpeed;
+            desMoveSpeed = walkSpeed;
 
         } else{
             state = MovementState.air;
         }
+
+        if(Mathf.Abs(desMoveSpeed - finalDesMoveSpeed) > 6f && moveSpeed != 0){
+            StopAllCoroutines();
+            StartCoroutine(SmoothLerpMoveSpeed());
+
+        } else{
+            moveSpeed = finalDesMoveSpeed;
+
+        }
+
+        finalDesMoveSpeed = desMoveSpeed;
+    }
+
+    /// Smooths out the momentum loss
+    private IEnumerator SmoothLerpMoveSpeed(){
+        
+        float time = 0;
+        float dif = Mathf.Abs(desMoveSpeed - moveSpeed);
+        float startVal = moveSpeed;
+
+        while (time < dif){
+
+            moveSpeed = Mathf.Lerp(startVal, desMoveSpeed, time / dif);
+
+            if (OnSlope()){
+                float angle = Vector3.Angle(Vector3.up, slopeHit.normal);
+                float angleIncrease = 1 + (angle / 90f);
+
+                time += Time.deltaTime * speedIncreaseMult * slopeIncreaseMult * angleIncrease;
+
+            } else {
+
+                time += Time.deltaTime * speedIncreaseMult;
+                
+            }
+
+            yield return null;
+        }
+
+        moveSpeed = desMoveSpeed;
 
     }
 
@@ -189,7 +247,7 @@ public class Player_Movement : MonoBehaviour
         /// On a slope
         if (OnSlope() && !exitSlope){
 
-            rb.AddForce(getSlopeMoveDir() * moveSpeed * slopeSpeedMod, ForceMode.Force);
+            rb.AddForce(getSlopeMoveDir(moveDirection) * moveSpeed * slopeSpeedMod, ForceMode.Force);
 
             if(rb.velocity.y != 0){
 
@@ -205,7 +263,7 @@ public class Player_Movement : MonoBehaviour
         } else if (!Grounded){
 
          /// Is not grounded
-            rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
+            rb.AddForce(moveDirection.normalized * moveSpeed * airMultiplier, ForceMode.Force);
         }
 
         ///Remove gravity when on slope
@@ -260,7 +318,7 @@ public class Player_Movement : MonoBehaviour
 
     }
 
-    private bool OnSlope(){
+    public bool OnSlope(){
 
         if(Physics.Raycast(transform.position, Vector3.down, out slopeHit, playerHeight * 0.5f + 0.3f)){
 
@@ -271,9 +329,9 @@ public class Player_Movement : MonoBehaviour
         return false;
     }
 
-    private Vector3 getSlopeMoveDir(){
+    public Vector3 getSlopeMoveDir(Vector3 direction){
 
-        return Vector3.ProjectOnPlane(moveDirection, slopeHit.normal).normalized;
+        return Vector3.ProjectOnPlane(direction, slopeHit.normal).normalized;
     }
 
     ////// TODO    
