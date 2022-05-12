@@ -198,7 +198,7 @@ public class Player_Movement : MonoBehaviour
             state = MovementState.air;
         }
 
-        if(Mathf.Abs(desMoveSpeed - finalDesMoveSpeed) > 4f && moveSpeed != 0){
+        if(Mathf.Abs(desMoveSpeed - finalDesMoveSpeed) > 6f && moveSpeed != 0){
             StopAllCoroutines();
             StartCoroutine(SmoothLerpMoveSpeed());
 
@@ -210,6 +210,7 @@ public class Player_Movement : MonoBehaviour
         finalDesMoveSpeed = desMoveSpeed;
     }
 
+    /// Smooths out the momentum loss
     private IEnumerator SmoothLerpMoveSpeed(){
         
         float time = 0;
@@ -262,7 +263,7 @@ public class Player_Movement : MonoBehaviour
         } else if (!Grounded){
 
          /// Is not grounded
-            rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
+            rb.AddForce(moveDirection.normalized * moveSpeed * airMultiplier, ForceMode.Force);
         }
 
         ///Remove gravity when on slope
