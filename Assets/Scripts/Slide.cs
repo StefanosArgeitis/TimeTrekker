@@ -25,7 +25,6 @@ public class Slide : MonoBehaviour
 
         public float slideYScale;
         private float startYScale;
-        private bool sliding;
         private RaycastHit roofHit;
         public float playerHeight;
 
@@ -49,7 +48,7 @@ public class Slide : MonoBehaviour
 
             }
 
-            if (Input.GetKeyUp(slideKey) && sliding){
+            if (Input.GetKeyUp(slideKey) && pm.sliding){
                 StopSlide();
 
             }
@@ -57,7 +56,7 @@ public class Slide : MonoBehaviour
 
         private void FixedUpdate() {
 
-            if (sliding){
+            if (pm.sliding){
                 SlideMovement();
             }
 
@@ -66,9 +65,18 @@ public class Slide : MonoBehaviour
         private void SlideMovement(){
 
             Vector3 inputDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
-            rb.AddForce(inputDirection.normalized * slideForce, ForceMode.Force);
+            
+            /// Sliding on ground or up slope
+            if (pm.OnSlope() || rb.velocity.y > -0.1f){
 
-            slideTimer -= Time.deltaTime;
+                rb.AddForce(inputDirection.normalized * slideForce, ForceMode.Force);
+                slideTimer -= Time.deltaTime;
+
+            } else {    /// Sliding down slope
+
+            rb.AddForce(pm.getSlopeMoveDir(inputDirection) * slideForce, ForceMode.Force);
+                              
+            }
 
 
             if(slideTimer <= 0){
@@ -79,7 +87,7 @@ public class Slide : MonoBehaviour
 
         private void StartSlide(){
 
-            sliding = true;
+            pm.sliding = true;
 
             playerObj.localScale = new Vector3(playerObj.localScale.x, slideYScale, playerObj.localScale.z);
             rb.AddForce(Vector3.down * 5f, ForceMode.Impulse);
@@ -89,9 +97,8 @@ public class Slide : MonoBehaviour
 
         private void StopSlide(){
 
-            sliding = false;
+            pm.sliding = false;
             playerObj.localScale = new Vector3(playerObj.localScale.x, startYScale, playerObj.localScale.z);
             
-
         }
 }

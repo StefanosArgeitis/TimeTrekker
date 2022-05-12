@@ -21761,8 +21761,11 @@ MonoBehaviour:
   maxSpeed: 30
   sprintSpeed: 18
   groundDrag: 3.5
+  slideSpeed: 0
+  speedIncreaseMult: 0
+  slopeIncreaseMult: 0
   jumpForce: 25
-  JumpCooldown: 1.2
+  JumpCooldown: 0.7
   airMultiplier: 0.2
   crouchSpeed: 7
   crouchYScale: 0.5
@@ -21776,6 +21779,7 @@ MonoBehaviour:
   maxSlopeAngle: 60
   slopeSpeedMod: 5
   orientation: {fileID: 439517236}
+  sliding: 0
   state: 0
 --- !u!114 &1808042158
 MonoBehaviour:
