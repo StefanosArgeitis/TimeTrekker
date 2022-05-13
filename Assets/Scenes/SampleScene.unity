@@ -21761,12 +21761,12 @@ MonoBehaviour:
   maxSpeed: 30
   sprintSpeed: 18
   groundDrag: 3.5
-  slideSpeed: 0
-  speedIncreaseMult: 0
-  slopeIncreaseMult: 0
+  slideSpeed: 23
+  speedIncreaseMult: 4
+  slopeIncreaseMult: 4
   jumpForce: 25
   JumpCooldown: 0.7
-  airMultiplier: 0.2
+  airMultiplier: 3
   crouchSpeed: 7
   crouchYScale: 0.5
   jumpkey: 32
