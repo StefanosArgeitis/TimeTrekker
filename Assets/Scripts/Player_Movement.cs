@@ -12,6 +12,7 @@ public class Player_Movement : MonoBehaviour
     public float sprintSpeed;
     public float groundDrag;
     public float slideSpeed;
+    public float wallrunSpeed;
 
     private float desMoveSpeed;
     private float finalDesMoveSpeed;
@@ -65,6 +66,7 @@ public class Player_Movement : MonoBehaviour
     float verticalInput;
 
     public bool sliding;
+    public bool wallrunning;
 
     Vector3 moveDirection;
 
@@ -75,6 +77,7 @@ public class Player_Movement : MonoBehaviour
 
         walking,
         sprinting,
+        wallrunning,
         crouching,
         sliding,
         air
@@ -198,6 +201,12 @@ public class Player_Movement : MonoBehaviour
             state = MovementState.air;
         }
 
+        if (wallrunning){
+            state = MovementState.wallrunning;
+            desMoveSpeed = wallrunSpeed;
+
+        }
+
         if(Mathf.Abs(desMoveSpeed - finalDesMoveSpeed) > 6f && moveSpeed != 0){
             StopAllCoroutines();
             StartCoroutine(SmoothLerpMoveSpeed());
@@ -267,7 +276,9 @@ public class Player_Movement : MonoBehaviour
         }
 
         ///Remove gravity when on slope
-        rb.useGravity = !OnSlope();
+        if (!wallrunning){
+            rb.useGravity = !OnSlope();
+        }
 
     }
 
