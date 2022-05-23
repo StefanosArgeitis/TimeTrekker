@@ -28,12 +28,17 @@ public class Shoot_Camera : MonoBehaviour
     ///Debugging
     public bool allowInvoke = true;
 
+    private Animator anim;
+
 
     private void Awake() {
         
         ammoLeft = magSize;
 
         readyToShoot = true;
+
+        anim = GetComponent<Animator> ();
+
 
     }
 
@@ -79,6 +84,8 @@ public class Shoot_Camera : MonoBehaviour
 
         readyToShoot = false;
 
+        anim.SetBool("Shoot", true);
+
         muzzleFlash.Play();
 
         ///Find exact position of hit
@@ -122,12 +129,30 @@ public class Shoot_Camera : MonoBehaviour
 
     private void ResetShot(){
 
+            anim.SetBool("Shoot", false);
             readyToShoot = true;
             allowInvoke = true;
 
     }
 
     private void Reload(){
+
+        if (ammoLeft == 4){
+           anim.SetBool("R1", true);
+
+        }else if(ammoLeft == 3){
+            anim.SetBool("R2", true);
+
+        } else if(ammoLeft == 2){
+            anim.SetBool("R3", true);
+
+        } else if(ammoLeft == 1){
+            anim.SetBool("R4", true);
+
+        } else{
+            anim.SetBool("R5", true);
+
+        }
 
         reloading = true;
         Invoke("ReloadFinished", reloadTime);
@@ -138,5 +163,11 @@ public class Shoot_Camera : MonoBehaviour
 
         ammoLeft = magSize;
         reloading = false;
+
+        anim.SetBool("R1", false);
+        anim.SetBool("R2", false);
+        anim.SetBool("R3", false);
+        anim.SetBool("R4", false);
+        anim.SetBool("R5", false);
     }
 }
