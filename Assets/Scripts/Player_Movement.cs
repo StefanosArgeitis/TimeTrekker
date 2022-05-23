@@ -8,7 +8,6 @@ public class Player_Movement : MonoBehaviour
     [Header ("Movement")]
     public float moveSpeed;
     public float walkSpeed;
-    public float maxSpeed;
     public float sprintSpeed;
     public float groundDrag;
     public float slideSpeed;
@@ -212,7 +211,7 @@ public class Player_Movement : MonoBehaviour
             StartCoroutine(SmoothLerpMoveSpeed());
 
         } else{
-            moveSpeed = finalDesMoveSpeed;
+            moveSpeed = desMoveSpeed;
 
         }
 
@@ -287,18 +286,18 @@ public class Player_Movement : MonoBehaviour
         /// Limit speed on slope
         if(OnSlope() && !exitSlope){
 
-            if(rb.velocity.magnitude > maxSpeed){
+            if(rb.velocity.magnitude > moveSpeed){
 
-                rb.velocity = rb.velocity.normalized * maxSpeed;
+                rb.velocity = rb.velocity.normalized * moveSpeed;
             }
 
         } else{ ///Limit speed on ground and in the air
 
             Vector3 flatVelocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
-            if (flatVelocity.magnitude > maxSpeed){
+            if (flatVelocity.magnitude > moveSpeed){
 
-            Vector3 limitVelocity = flatVelocity.normalized * maxSpeed;
+            Vector3 limitVelocity = flatVelocity.normalized * moveSpeed;
             rb.velocity = new Vector3(limitVelocity.x, rb.velocity.y, limitVelocity.z);
 
             }
