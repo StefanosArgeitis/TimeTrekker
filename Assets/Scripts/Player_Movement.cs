@@ -8,10 +8,10 @@ public class Player_Movement : MonoBehaviour
     [Header ("Movement")]
     public float moveSpeed;
     public float walkSpeed;
-    public float maxSpeed;
     public float sprintSpeed;
     public float groundDrag;
     public float slideSpeed;
+    public float wallrunSpeed;
 
     private float desMoveSpeed;
     private float finalDesMoveSpeed;
@@ -65,6 +65,7 @@ public class Player_Movement : MonoBehaviour
     float verticalInput;
 
     public bool sliding;
+    public bool wallrunning;
 
     Vector3 moveDirection;
 
@@ -75,6 +76,7 @@ public class Player_Movement : MonoBehaviour
 
         walking,
         sprinting,
+        wallrunning,
         crouching,
         sliding,
         air
@@ -198,12 +200,18 @@ public class Player_Movement : MonoBehaviour
             state = MovementState.air;
         }
 
+        if (wallrunning){
+            state = MovementState.wallrunning;
+            desMoveSpeed = wallrunSpeed;
+
+        }
+
         if(Mathf.Abs(desMoveSpeed - finalDesMoveSpeed) > 6f && moveSpeed != 0){
             StopAllCoroutines();
             StartCoroutine(SmoothLerpMoveSpeed());
 
         } else{
-            moveSpeed = finalDesMoveSpeed;
+            moveSpeed = desMoveSpeed;
 
         }
 
@@ -267,7 +275,9 @@ public class Player_Movement : MonoBehaviour
         }
 
         ///Remove gravity when on slope
-        rb.useGravity = !OnSlope();
+        if (!wallrunning){
+            rb.useGravity = !OnSlope();
+        }
 
     }
 
@@ -276,18 +286,18 @@ public class Player_Movement : MonoBehaviour
         /// Limit speed on slope
         if(OnSlope() && !exitSlope){
 
-            if(rb.velocity.magnitude > maxSpeed){
+            if(rb.velocity.magnitude > moveSpeed){
 
-                rb.velocity = rb.velocity.normalized * maxSpeed;
+                rb.velocity = rb.velocity.normalized * moveSpeed;
             }
 
         } else{ ///Limit speed on ground and in the air
 
             Vector3 flatVelocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
-            if (flatVelocity.magnitude > maxSpeed){
+            if (flatVelocity.magnitude > moveSpeed){
 
-            Vector3 limitVelocity = flatVelocity.normalized * maxSpeed;
+            Vector3 limitVelocity = flatVelocity.normalized * moveSpeed;
             rb.velocity = new Vector3(limitVelocity.x, rb.velocity.y, limitVelocity.z);
 
             }
