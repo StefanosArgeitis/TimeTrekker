@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class P_Bullet : MonoBehaviour
 {
-    private void OnTriggerEnter(Collider collision) {
+    private void OnCollisionEnter(Collision collision) {
 
         if(collision.transform.tag == "Enemy"){
 
