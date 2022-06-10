@@ -68,7 +68,8 @@ public class Player_Movement : MonoBehaviour
     public bool w_climbing;
     public bool sliding;
     public bool wallrunning;
-
+    public bool wallrunningAllowed;
+    
     Vector3 moveDirection;
 
     Rigidbody rb;
@@ -122,12 +123,16 @@ public class Player_Movement : MonoBehaviour
         Speed_Control();
         StateHandle();
 
-        if (Grounded)
+        if (Grounded){
 
             rb.drag = groundDrag;
-        else
+            wallrunningAllowed = true;
+
+        }else{
+
             rb.drag = 0;
 
+        }
         
     }
 
@@ -172,10 +177,12 @@ public class Player_Movement : MonoBehaviour
 
 
     private void StateHandle(){
+
         /// Wall climbing
         if (w_climbing){
             state = MovementState.w_climbing;
             desMoveSpeed = climbSpeed;
+            wallrunningAllowed = false;
 
         }else if (sliding){
              /// sliding
