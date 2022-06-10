@@ -98,7 +98,7 @@ public class WallRunning : MonoBehaviour
         //Wallrunning
         if((wallLeft || wallRight) && verticalInput > 0 && AboveGround() && !exitingWall){
             
-            if (!pm.wallrunning){
+            if (!pm.wallrunning && pm.wallrunningAllowed){
                 StartWallRun();
 
             }
