@@ -12,6 +12,7 @@ public class Player_Movement : MonoBehaviour
     public float groundDrag;
     public float slideSpeed;
     public float wallrunSpeed;
+    public float climbSpeed;
 
     private float desMoveSpeed;
     private float finalDesMoveSpeed;
@@ -43,7 +44,7 @@ public class Player_Movement : MonoBehaviour
     [Header ("CheckForGround")]
     public float playerHeight;
     public LayerMask is_ground;
-    bool Grounded;
+    public bool Grounded;
 
     [Header ("Slope Handler")]
     public float maxSlopeAngle;
@@ -64,6 +65,7 @@ public class Player_Movement : MonoBehaviour
     float horizontalInput;
     float verticalInput;
 
+    public bool w_climbing;
     public bool sliding;
     public bool wallrunning;
 
@@ -71,11 +73,14 @@ public class Player_Movement : MonoBehaviour
 
     Rigidbody rb;
 
+    public Wall_Climbing wc;
+
     public MovementState state;
     public enum MovementState{
 
         walking,
         sprinting,
+        w_climbing,
         wallrunning,
         crouching,
         sliding,
@@ -167,9 +172,13 @@ public class Player_Movement : MonoBehaviour
 
 
     private void StateHandle(){
-        /// sliding
-        if (sliding){
+        /// Wall climbing
+        if (w_climbing){
+            state = MovementState.w_climbing;
+            desMoveSpeed = climbSpeed;
 
+        }else if (sliding){
+             /// sliding
             state = MovementState.sliding;
 
             if (OnSlope() && rb.velocity.y < 0.1f){
@@ -249,6 +258,10 @@ public class Player_Movement : MonoBehaviour
     }
 
     private void MovePlayer(){
+
+        if (wc.exitWall){
+            return;
+        }
 
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
