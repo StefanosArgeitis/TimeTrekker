@@ -8,6 +8,7 @@ public class EnemyAI : MonoBehaviour
    
    public NavMeshAgent agent;
    public Transform player;
+   //public NavMeshPath navPath;
 
     public LayerMask is_ground, is_player;
 
@@ -17,13 +18,15 @@ public class EnemyAI : MonoBehaviour
     public Vector3 walkPoint;
 
     bool walkPointSet;
+    public float idleTime;
 
     public float walkPointDistance;
+    public Transform Attackpoint;
 
     //bool canInvoke = true;
 
     //public float idleTime;
-    //bool idled = true;
+    bool idled = true;
 
     /// Enemy to attack
     public float timeBetweenAttacks;
@@ -76,6 +79,10 @@ public class EnemyAI : MonoBehaviour
 
     private void Patroling(){
 
+        if (!idled){
+           return;
+        }
+
         if(!walkPointSet){
 
             SearchWalkPoint();
@@ -83,7 +90,19 @@ public class EnemyAI : MonoBehaviour
         }
 
         if(walkPointSet){
-            agent.SetDestination(walkPoint);
+
+            NavMeshPath navPath = new NavMeshPath();
+
+            if(agent.CalculatePath(walkPoint, navPath) &&  navPath.status == NavMeshPathStatus.PathComplete){
+
+                agent.SetDestination(walkPoint);
+                //Debug.Log("yes");
+
+            }else {
+                walkPointSet = false;
+                //Debug.Log("no");
+            }
+            
         }
 
         Vector3 distanceToWalkPoint = transform.position - walkPoint;
@@ -92,13 +111,22 @@ public class EnemyAI : MonoBehaviour
         if(distanceToWalkPoint.magnitude < 1f){
 
             walkPointSet = false;
+            Idle();
         }
     }
 
     private void Idle(){
 
+        idled = false;
 
+        //agent.SetDestination(transform.position);
 
+        Invoke("ResetIdle", idleTime);
+
+    }
+
+    private void ResetIdle(){
+        idled = true;
     }
 
     private void SearchWalkPoint(){
@@ -133,7 +161,7 @@ public class EnemyAI : MonoBehaviour
 
         if(!alreadyAttacked){
 
-            Rigidbody rb = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
+            Rigidbody rb = Instantiate(projectile, Attackpoint.position, Quaternion.identity).GetComponent<Rigidbody>();
 
             rb.AddForce(transform.forward * 32f, ForceMode.Impulse);
             ///rb.AddForce(transform.up * 8f, ForceMode.Impulse);

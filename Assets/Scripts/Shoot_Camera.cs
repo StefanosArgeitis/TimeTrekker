@@ -95,11 +95,13 @@ public class Shoot_Camera : MonoBehaviour
         //checks if ray hits something
         Vector3 targetPoint;
 
-        if (Physics.Raycast (ray, out hit))
+        if (Physics.Raycast (ray, out hit)){
             targetPoint = hit.point;
-        else
-            targetPoint = ray.GetPoint(75); ///will take point that is far away
 
+        }else{
+            
+            targetPoint = ray.GetPoint(75); ///will take point that is far away
+        }
     
         Vector3 directionOfShoot = targetPoint - Attackpoint.position;
 
