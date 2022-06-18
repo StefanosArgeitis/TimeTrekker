@@ -15652,7 +15652,8 @@ MonoBehaviour:
     m_Bits: 128
   projectile: {fileID: 8605830523808914853, guid: bcc6aafef63fb6c4e94c18d0f66ab02e, type: 3}
   walkPoint: {x: 0, y: 0, z: 0}
-  walkPointDistance: 5
+  idleTime: 3
+  walkPointDistance: 7
   Attackpoint: {fileID: 167373856}
   timeBetweenAttacks: 0.5
   sightRange: 20
