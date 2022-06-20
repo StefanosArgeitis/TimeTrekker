@@ -108,7 +108,7 @@ public class Player_Movement : MonoBehaviour
         //stepClimb();
 
         Vector3 speed = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-        Debug.Log("Speed: " + (speed.magnitude).ToString("F2"));
+        //Debug.Log("Speed: " + (speed.magnitude).ToString("F2"));
         //Debug.Log(OnSlope());
     }
 

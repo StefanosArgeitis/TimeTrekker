@@ -31,6 +31,7 @@ public class EnemyAI : MonoBehaviour
     /// Enemy to attack
     public float timeBetweenAttacks;
     bool alreadyAttacked;
+    private Animator animate;
 
     /// States of the Enemy
     public float sightRange, attackRange;
@@ -58,10 +59,16 @@ public class EnemyAI : MonoBehaviour
 
             Patroling();
 
+            animate.SetBool("ChaseR", false);
+            animate.SetBool("AttackR", false);
+
         }
 
         /// If player is not in attackrange then chase player
         if(playerInSightRange && !playerInAttackRange){
+
+            //animate.SetBool("ChaseR", true);
+            //animate.SetBool("AttackR", false);
 
             ChasePlayer();
 
@@ -71,6 +78,7 @@ public class EnemyAI : MonoBehaviour
         if(playerInSightRange && playerInAttackRange){
 
             AttackPlayer();
+            animate.SetBool("AttackR", true);
 
         }
     }
@@ -146,13 +154,16 @@ public class EnemyAI : MonoBehaviour
     }
 
     private void ChasePlayer(){
-        
+        animate.SetBool("ChaseR", true);
+        animate.SetBool("AttackR", false);
         /// Will move towards the player
         agent.SetDestination(player.position);
     
     }
 
     private void AttackPlayer(){
+        
+        animate.SetBool("AttackR", true);
 
         ///Stops moving when attacking
         agent.SetDestination(transform.position);
