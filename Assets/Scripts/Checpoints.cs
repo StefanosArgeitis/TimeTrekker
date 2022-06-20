@@ -8,7 +8,6 @@ public class Checpoints : MonoBehaviour
     public Respawn rp;
     public Transform player;
     public GameObject checkpointparticle;
-    public Text text;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,7 +17,6 @@ public class Checpoints : MonoBehaviour
     private void OnTriggerEnter(Collider other) {
 
         Instantiate(checkpointparticle, player.transform.position, Quaternion.identity);
-
         rp.newSpawnPoint();
     }
 }

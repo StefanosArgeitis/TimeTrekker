@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class Respawn : MonoBehaviour
 {
@@ -16,7 +17,10 @@ public class Respawn : MonoBehaviour
     public float respawntime;
     public float fadeSpeed;
     public float fadetime;
-
+    //public Text text;
+    //public TMP_Text text;
+    public TextMeshProUGUI text;
+    private bool checkpointTxt;
     private void Start() {
 
         respawnPoint = player.transform.position;
@@ -42,6 +46,7 @@ public class Respawn : MonoBehaviour
                 fadeOut = false;
             }
         }
+
     }
 
     public void p_respawn(){
@@ -70,24 +75,5 @@ public class Respawn : MonoBehaviour
 
     public void newSpawnPoint(){
         respawnPoint = player.transform.position;
-    }
-
-    public void c_text(){
-
-    }
-
-    public IEnumerator TextI(){
-
-        yield return new WaitForSeconds(respawntime);
-
-        fadeIn = true;
-
-        yield return new WaitForSeconds(fadetime);
-
-        fadeOut = true;
-        respawning = false;
-        player.transform.position = respawnPoint;
-
-
     }
 }
