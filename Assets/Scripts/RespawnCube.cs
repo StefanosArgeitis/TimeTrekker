@@ -8,9 +8,8 @@ public class RespawnCube : MonoBehaviour
 
     private void OnTriggerEnter(Collider other) {
 
-        if (other.tag.Equals("Player")){
-            rp.p_respawn();
-        }
+        rp.p_respawn();
+    
     }
 
 }

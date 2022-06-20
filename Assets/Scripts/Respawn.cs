@@ -67,4 +67,27 @@ public class Respawn : MonoBehaviour
 
 
     }
+
+    public void newSpawnPoint(){
+        respawnPoint = player.transform.position;
+    }
+
+    public void c_text(){
+
+    }
+
+    public IEnumerator TextI(){
+
+        yield return new WaitForSeconds(respawntime);
+
+        fadeIn = true;
+
+        yield return new WaitForSeconds(fadetime);
+
+        fadeOut = true;
+        respawning = false;
+        player.transform.position = respawnPoint;
+
+
+    }
 }
