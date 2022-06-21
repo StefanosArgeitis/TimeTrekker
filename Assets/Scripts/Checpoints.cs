@@ -17,6 +17,7 @@ public class Checpoints : MonoBehaviour
     private void OnTriggerEnter(Collider other) {
 
         Instantiate(checkpointparticle, player.transform.position, Quaternion.identity);
+        Debug.Log("NICE");
         rp.newSpawnPoint();
     }
 }

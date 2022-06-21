@@ -8,7 +8,7 @@ public class NextLevel : MonoBehaviour
     [SerializeField] private string loadLevel;
 
     private void OnTriggerEnter(Collider other) {
-        Debug.Log("hoihohoi");
+        //Debug.Log("hoihohoi");
         SceneManager.LoadScene(loadLevel);
 
     }
