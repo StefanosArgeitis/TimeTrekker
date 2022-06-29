@@ -5903,13 +5903,14 @@ TextMesh:
   m_Text: "\u201CTo move, use the standard WASD controls, and to look around, move
     your mouse\u201D\r\n\r\n\u201CPress C to Crouch\u201D\r\n\n\"Press R to Restart
     if stuck\"\n\r\n\u201CHold the Shift key  to sprint\u201D\r\n\r\n\u201CUse the
-    spacebar to jump\u201D\r\n\r\n\u201CTo initiate \u201Cwallrunning\u201D, look
+    Spacebar to jump\u201D\r\n\r\n\u201CTo initiate \u201Cwallrunning\u201D, look
     parallel to a wall while moving\u201D\r\n\r\n\u201CTo jump from wall to wall,
     look towards the wall that you want to jump onto and press space\u201D\r\n\r\n\u201CIf
     you stop holding the W key, you will simply fall off the wall, be sure to always
-    be holding it while wall running\u201D\r\n\r\n\u201CFollow the path of platforms
-    to complete the tutorial\u201D\r\n\r\n\u201CTo ledge grab, face towards the ledge
-    and hold W, this will allow you to climb over ledges\u201D"
+    be holding it while wall running\u201D\r\n\r\n\u201CTo ledge grab, face towards
+    the ledge and hold W, this will allow you to climb over ledges\u201D\n\n\"Jumping
+    and Running consume stamina, be wary of that because without stamina you cannot
+    do either\"\n\n\u201CFollow the path of platforms to complete the tutorial\u201D\r\n\r\n"
   m_OffsetZ: 0
   m_CharacterSize: 0.01
   m_LineSpacing: 1
@@ -5973,7 +5974,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1286270498}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.803, y: 2.65, z: 8.71}
+  m_LocalPosition: {x: -2.803, y: 2.785, z: 8.71}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
