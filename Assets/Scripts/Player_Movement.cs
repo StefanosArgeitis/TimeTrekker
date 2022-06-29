@@ -75,6 +75,7 @@ public class Player_Movement : MonoBehaviour
     Rigidbody rb;
 
     public Wall_Climbing wc;
+    public StaminaBar sb;
 
     public MovementState state;
     public enum MovementState{
@@ -142,7 +143,7 @@ public class Player_Movement : MonoBehaviour
         verticalInput = Input.GetAxisRaw("Vertical");
 
         ///jump
-        if (Input.GetKey(jumpkey) && ready_to_jump && Grounded){
+        if (Input.GetKey(jumpkey) && ready_to_jump && Grounded && (sb.currentStamina > 450)){
 
             ready_to_jump = false;
 
@@ -202,8 +203,9 @@ public class Player_Movement : MonoBehaviour
             state = MovementState.crouching;
             desMoveSpeed = crouchSpeed;
 
-        } else if(Grounded && Input.GetKey(runkey)){
+        } else if(Grounded && Input.GetKey(runkey) && (sb.currentStamina > 0)){
             /// Running state
+            StaminaBar.instance.UseStamina(1);
             state = MovementState.sprinting;
             desMoveSpeed = sprintSpeed;
 
@@ -330,9 +332,11 @@ public class Player_Movement : MonoBehaviour
 
     private void Jump(){
 
-       Grounded = false;
+        StaminaBar.instance.UseStamina(450);
 
-       exitSlope = true;
+        Grounded = false;
+
+        exitSlope = true;
        
         /// Resets y velocity (Jump the same height)
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
