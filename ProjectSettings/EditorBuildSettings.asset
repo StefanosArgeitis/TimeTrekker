@@ -24,6 +24,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Parkour 2.unity
     guid: aefcedf6e26b00a4d877ee972293bbb6
   - enabled: 1
+    path: Assets/Scenes/fQuestion.unity
+    guid: cadde9a4c4549824fa536ef880937f94
+  - enabled: 1
     path: Assets/Scenes/Cut3.unity
     guid: 4c1bd0056a9ee0a4886c4f625b8061d4
   - enabled: 1

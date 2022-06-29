@@ -7098,7 +7098,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6be84eef2bd674449bb733f0af8ad806, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  loadLevel: Cut3
+  loadLevel: fQuestion
 --- !u!65 &1267192738
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7930,7 +7930,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 2b40d2420244ae748bd2cbe35d640973, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.733
   m_Pitch: 1
   Loop: 0
