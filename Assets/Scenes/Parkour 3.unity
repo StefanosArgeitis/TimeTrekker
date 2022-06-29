@@ -2814,6 +2814,7 @@ MonoBehaviour:
   fadeSpeed: 2
   fadetime: 1
   text: {fileID: 0}
+  restartKey: 114
 --- !u!4 &689489394
 Transform:
   m_ObjectHideFlags: 0
@@ -4709,15 +4710,15 @@ TextMesh:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1286270498}
   m_Text: "\u201CTo move, use the standard WASD controls, and to look around, move
-    your mouse\u201D\r\n\r\n\u201CPress C to Crouch\u201D\r\n\r\n\u201CHold the Shift
-    key  to sprint\u201D\r\n\r\n\u201CUse the spacebar to jump\u201D\r\n\r\n\u201CTo
-    initiate \u201Cwallrunning\u201D, look parallel to a wall and press the sapcebar
-    while moving, tilt your camera slightly towards the wall to begin\u201D\r\n\r\n\u201CTo
-    jump from wall to wall, look towards the wall that you want to jump onto and
-    press space\u201D\r\n\r\n\u201CIf you stop holding the W key, you will simply
-    fall off the wall, be sure to always be holding it while wall running\u201D\r\n\r\n\u201CFollow
-    the path of platforms to complete the tutorial\u201D\r\n\r\n\u201CTo ledge grab,
-    face towards the ledge and hold W, this will allow you to climb over ledges\u201D"
+    your mouse\u201D\r\n\r\n\u201CPress C to Crouch\u201D\r\n\n\"Press R to Restart
+    if stuck\"\n\r\n\u201CHold the Shift key  to sprint\u201D\r\n\r\n\u201CUse the
+    spacebar to jump\u201D\r\n\r\n\u201CTo initiate \u201Cwallrunning\u201D, look
+    parallel to a wall while moving\u201D\r\n\r\n\u201CTo jump from wall to wall,
+    look towards the wall that you want to jump onto and press space\u201D\r\n\r\n\u201CIf
+    you stop holding the W key, you will simply fall off the wall, be sure to always
+    be holding it while wall running\u201D\r\n\r\n\u201CFollow the path of platforms
+    to complete the tutorial\u201D\r\n\r\n\u201CTo ledge grab, face towards the ledge
+    and hold W, this will allow you to climb over ledges\u201D"
   m_OffsetZ: 0
   m_CharacterSize: 0.01
   m_LineSpacing: 1

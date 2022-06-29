@@ -21,6 +21,9 @@ public class Respawn : MonoBehaviour
     //public TMP_Text text;
     public TextMeshProUGUI text;
     private bool checkpointTxt;
+
+    public KeyCode restartKey = KeyCode.R;
+
     private void Start() {
 
         respawnPoint = player.transform.position;
@@ -45,6 +48,10 @@ public class Respawn : MonoBehaviour
             if (blackScreen.color.a == 0f){
                 fadeOut = false;
             }
+        }
+
+        if (Input.GetKeyDown(restartKey)){
+            p_respawn();
         }
 
     }
