@@ -10250,7 +10250,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6be84eef2bd674449bb733f0af8ad806, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  loadLevel: Parkour 2
+  loadLevel: Cut2
 --- !u!65 &1860971179
 BoxCollider:
   m_ObjectHideFlags: 0

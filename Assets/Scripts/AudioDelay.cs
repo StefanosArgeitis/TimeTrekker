@@ -8,7 +8,7 @@ public class AudioDelay : MonoBehaviour
     void Start()
     {
         music = GetComponent<AudioSource>();
-        Invoke("playAudio", 3f);
+        Invoke("playAudio", 2f);
     }
 
     void playAudio(){

@@ -10,7 +10,7 @@ public class FinalMenu : MonoBehaviour
 
     void Start()
     {
-        Invoke("MainMenuReset", 36f);
+        Invoke("MainMenuReset", 2f);
     }
 
     void MainMenuReset(){
